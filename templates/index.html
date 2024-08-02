@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Weather App using Flask in Python</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+</head>
+<body>    
+    <div class="container">
+        <br><br><br>
+        <div class="row text-center"><h1>WEATHER APPLICATION</h1></div>
+        <br>
+        <div class="row">           
+            <p>Get Weather Details of any places around the World!</p>           
+        </div>
+        <div class="row">                        
+            <form action="{{ url_for('index') }}" method="post">
+                <div class="form-group">
+                    <label for="cityName">City Name:</label>
+                    <input type="text" id="cityName" name="cityName" value="{{ cityName }}" placeholder="City Name" class="form-control">
+                    <button type="submit" class="btn btn-primary mt-2">Find</button>
+                </div>
+            </form>
+            {% if error %}
+                <br><span class="alert alert-danger">Kindly enter a valid city name.</span>
+            {% endif %}
+            {% if data %}
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Country Code</th>
+                        <th>Coordinate</th>
+                        <th>Temperature</th>
+                        <th>Pressure</th>
+                        <th>Humidity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="bg-success">{{ data.sys.country }}</td>
+                        <td class="bg-info">{{ data.coord.lon }} {{ data.coord.lat }}</td>
+                        <td class="bg-danger">{{ data.main.temp }} K</td>
+                        <td class="bg-warning">{{ data.main.pressure }}</td>
+                        <td class="bg-primary">{{ data.main.humidity }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
